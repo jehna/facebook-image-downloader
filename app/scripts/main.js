@@ -34,25 +34,31 @@ function loadedAllImages() {
         request.onload = function () {
             if ( this.readyState === 4 && this.status === 200 ) {
                 var arrayBuffer = request.response; // Note: not request.responseText
-                var blob = new Blob([arrayBuffer],{type: 'image/jpeg'});
-                JPEG.writeExifMetaData(
-                    blob,
-                    exifData,
-                    function(error, imageBlob) {
-                        if (error) {
-                            console.log(error);
-                            return;
-                        }
-                        
-                        var fileReader = new FileReader();
-                        fileReader.onload = function() {
-                            var arrayBuffer = this.result;
-                            zip.file(image.id + '.jpg', arrayBuffer);
-                        };
-                        fileReader.readAsArrayBuffer(imageBlob);
-                        
-                    }
-                );
+                
+                var binary = '';
+                var bytes = new Uint8Array( arrayBuffer );
+                var len = bytes.byteLength;
+                for (var i = 0; i < len; i++) {
+                    binary += String.fromCharCode( bytes[ i ] );
+                }
+                var base64 = window.btoa( binary );
+                
+                var zeroth = {};
+                var exif = {};
+                var gps = {};
+                zeroth[piexif.ImageIFD.Make] = 'Make';
+                zeroth[piexif.ImageIFD.XResolution] = [777, 1];
+                zeroth[piexif.ImageIFD.YResolution] = [777, 1];
+                zeroth[piexif.ImageIFD.Software] = 'Piexifjs';
+                exif[piexif.ExifIFD.DateTimeOriginal] = '2010:10:10 10:10:10';
+                exif[piexif.ExifIFD.LensMake] = 'LensMake';
+                gps[piexif.GPSIFD.GPSDateStamp] = '1999:99:99 99:99:99';
+                var exifObj = {'0th':zeroth, 'Exif':exif, 'GPS':gps};
+                var exifStr = piexif.dump(exifObj);
+                
+                var exifModified = piexif.insert(exifStr, 'data:image/jpeg;base64,' + base64);
+                
+                zip.file(image.id + '.jpg', exifModified.slice(23), {base64: true});
             }
         };
         request.send(null);

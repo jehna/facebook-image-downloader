@@ -18,5 +18,5 @@
   "trailing": true,
   "smarttabs": true,
   "jquery": true,
-  "predef": [ "FB", "JPEG", "JSZip", "saveAs" ]
+  "predef": [ "FB", "piexif", "JSZip", "saveAs" ]
 }
