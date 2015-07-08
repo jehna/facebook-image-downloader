@@ -46,19 +46,29 @@ function loadedAllImages() {
                 var zeroth = {};
                 var exif = {};
                 var gps = {};
-                zeroth[piexif.ImageIFD.Make] = 'Make';
-                zeroth[piexif.ImageIFD.XResolution] = [777, 1];
-                zeroth[piexif.ImageIFD.YResolution] = [777, 1];
-                zeroth[piexif.ImageIFD.Software] = 'Piexifjs';
-                exif[piexif.ExifIFD.DateTimeOriginal] = '2010:10:10 10:10:10';
-                exif[piexif.ExifIFD.LensMake] = 'LensMake';
-                gps[piexif.GPSIFD.GPSDateStamp] = '1999:99:99 99:99:99';
+                if (image.created_time) {
+                    exif[piexif.ExifIFD.DateTimeOriginal] = image.created_time;
+                    gps[piexif.GPSIFD.GPSDateStamp] = image.created_time;
+                }
+                if (image.place && image.place.location && image.place.location.latitude && image.place.location.longitude) {
+                    console.log('Got lat&lng');
+                    gps[piexif.GPSIFD.GPSDestLatitude] = image.place.location.latitude;
+                    gps[piexif.GPSIFD.GPSDestLongitude] = image.place.location.longitude;
+                }
+                
                 var exifObj = {'0th':zeroth, 'Exif':exif, 'GPS':gps};
                 var exifStr = piexif.dump(exifObj);
                 
                 var exifModified = piexif.insert(exifStr, 'data:image/jpeg;base64,' + base64);
                 
-                zip.file(image.id + '.jpg', exifModified.slice(23), {base64: true});
+                zip.file(
+                    (image.name ? image.name.substr(0,100).replace(/[\/\\]/g, '') : image.id) + '.jpg',
+                    exifModified.slice(23),
+                    {
+                        base64: true,
+                        date: image.created_time ? new Date(image.created_time) : new Date()
+                    }
+                );
             }
         };
         request.send(null);
