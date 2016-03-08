@@ -58,7 +58,10 @@ function loadedAllImages() {
 }
 
 function loadNextImages(url, paging) {
-    var params = { limit: 5 };
+    var params = {
+        limit: 5,
+        fields: 'created_time,source,place{location{latitude,longitude}},name,id,images'
+    };
     if (paging) {
         params.after = paging.cursors.after;
     } else {
@@ -67,7 +70,7 @@ function loadNextImages(url, paging) {
         $('.progress').show();
         $('#progressbar').css({ width: '0%' }).show();
     }
-    FB.api('/'+url+'/photos?fields=created_time,source,place{location{latitude,longitude}},name,id,images', 'GET', params, function(response) {
+    FB.api('/'+url, 'GET', params, function(response) {
         console.log(response);
         images = images.concat(response.data);
         
@@ -185,7 +188,11 @@ function loadAlbums() {
         });
         $albums.change(function() {
             var albumID = $(this).val();
-            loadNextImages(albumID);
+            if (albumID === '-1') {
+                loadNextImages('me/photos?type=tagged');
+            } else {
+                loadNextImages(albumID + '/photos');
+            }
         });
     });
 }
