@@ -157,7 +157,9 @@ function downloadImages() {
                 
                 if (Object.keys(zip.files).length === selectedImages.length) {
                     // All loaded, let's fire download
-                    location.href = 'data:application/zip;base64,' + zip.generate({ type: 'base64' });
+                    var content = zip.generate({type:"blob"});
+                    // see FileSaver.js
+                    saveAs(content, "download.zip");
                 }
             }
         };
