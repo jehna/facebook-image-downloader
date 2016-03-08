@@ -157,9 +157,9 @@ function downloadImages() {
                 
                 if (Object.keys(zip.files).length === selectedImages.length) {
                     // All loaded, let's fire download
-                    var content = zip.generate({type:"blob"});
+                    var content = zip.generate({type:'blob'});
                     // see FileSaver.js
-                    saveAs(content, "download.zip");
+                    saveAs(content, 'download.zip');
                 }
             }
         };
