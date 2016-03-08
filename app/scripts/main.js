@@ -78,21 +78,22 @@ function loadedAllImages() {
     //$row.appendTo($container);
 }
 
-function loadNextImages(paging) {
+function loadNextImages(url, paging) {
     var params = { limit: 5 };
     if (paging) {
         params.after = paging.cursors.after;
     } else {
         images = [];
         percentLoadedRemaining = 1;
+        $('#progressbar').css({ width: '0%' }).show();
     }
-    FB.api('/me/photos', 'GET', params, function(response) {
+    FB.api('/'+url+'/', 'GET', params, function(response) {
         console.log(response);
         images = images.concat(response.data);
         
         if (response.paging) {
             setTimeout(function() {
-                loadNextImages(response.paging);
+                loadNextImages(url, response.paging);
             },1);
             
             percentLoadedRemaining *= 0.8; 
@@ -109,8 +110,14 @@ function loadNextImages(paging) {
 
 $(function() {
     
-    $('#input-url').change(function() {
-        
+    $('#load-images').click(function() {
+        var url = $('#input-url').val();
+        if(!/^(https?:\/\/)?(www.)?facebook.com\//.test(url)) {
+            console.log('Not valid URL');
+            return;
+        }
+        var id = /set=\w+\.(\d+)/.exec(url)[1];
+        loadNextImages(id);
     });
 });
 
@@ -119,8 +126,6 @@ function checkLoginState() {
         if (response.status === 'connected') {
             $('.login').hide();
             $('#app').show();
-            
-            loadNextImages();
         }
     });
 }

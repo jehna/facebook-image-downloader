@@ -34,30 +34,40 @@
     <div id="app" style="display: none;">
       <div class="container">
         <div class="row">
-          <div class="col-sm-12">
-            <form id="input-url">
-              <input type="text" class="form-control" placeholder="Paste a URL to import photos from" id="input-url">
+          <div class="col-md-12">
+            <form>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Paste a URL to import photos from" id="input-url" value="https://www.facebook.com/marko.tukiainen/media_set?set=a.1721033306562.96885.1260192333&type=3">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button" id="load-images">Load images</button>
+                </span>
+              </div>
             </form>
           </div>
         </div>
         
-        <div class="progress">
+        <div class="progress" style="display: none;">
           <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 0%" id="progressbar"></div>
         </div>
         
-        <div class="row">
-          <p>Select images to download:</p>
-        </div>
-        <div id="select-images">
-          
+        <div id="select-images" style="display: none;">
+          <div class="row">
+            <p>Select images to download:</p>
+          </div>
         </div>
       </div>
       
     </div>
     
-
+    
     <div class="footer">
-      <p>Made with <span class="glyphicon glyphicon-heart"></span> by <a href="https://twitter.com/luotojesse">@luotojesse</a></p>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <p>Made with <span class="glyphicon glyphicon-heart"></span> by <a href="https://twitter.com/luotojesse">@luotojesse</a></p>
+          </div>
+        </div>
+      </div>
     </div>
 
 
