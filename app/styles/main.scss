@@ -12,8 +12,34 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 /* Space out content a bit */
 body {
-  padding-top: 20px;
+  padding-top: 100px;
   padding-bottom: 20px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: #D69;
+    z-index: 1;
+    
+    .btn,
+    .btn:hover,
+    .btn:focus,
+    select#albums {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        background: rgba(0, 0, 0, 0);
+        color: #FFF;
+        font-size: 17px;
+        height: 44px;
+        border: 2px solid #FFF;
+        outline: none !important;
+        box-shadow: none;
+        width: 100%;
+    }
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -42,6 +68,7 @@ body {
   padding-top: 19px;
   color: #777;
   border-top: 1px solid #e5e5e5;
+  margin-top: 20px;
 }
 
 .container-narrow > hr {
@@ -64,6 +91,64 @@ body {
   p + h4 {
     margin-top: 28px;
   }
+}
+
+#select-images {
+    text-align: center;
+    
+    .row {
+        margin-top: 10px;
+    }
+    
+    .col-md-4 {
+        position: relative;
+        
+        img {
+            transition: box-shadow 0.1s linear;
+            cursor: pointer;
+        }
+        
+        &:after {
+            pointer-events: none;
+            content: "\e157";
+            position: absolute;
+            font-family: 'Glyphicons Halflings';
+            top: 13px;
+            left: 193px;
+            display: block;
+            color: #EEE;
+            font-size: 25px;
+            text-align: center;
+            line-height: 32px;
+            opacity: 0;
+            transition: opacity 0.1s linear, color 0.1s linear;
+        }
+        
+        &:hover:after {
+            opacity: 0.7;
+        }
+    }
+    
+    .thumb {
+        width: 220px;
+        height: 220px;
+        background-position: 50% 50%;
+        background-size: cover;
+    }
+    
+    .selected {
+        
+        img {
+            box-shadow: inset 0px 0px 0px 5px #23DC53;
+        }
+        
+        &:after,
+        &:hover:after {
+            content: "\e067";
+            opacity: 1;
+            color: #23DC53;
+        }
+    }
 }
 
 /* Responsive: Portrait tablets and up */

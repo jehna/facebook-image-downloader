@@ -1,6 +1,6 @@
 <!doctype html>
 <html class="no-js">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Facebook Downloader</title>
     <meta name="description" content="">
@@ -14,60 +14,60 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-  </head>
-  <body>
+</head>
+<body>
     <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
 
     <div class="container login" style="display: block;">
-      <div class="jumbotron">
-        <h1>Facebook Image Downloader</h1>
-        <p class="lead">Download your Facebook images with correct timestamps and EXIF data. To get started, press the button below:</p>
-        <div>
-          <fb:login-button class="fb-login-button" scope="user_photos" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false" onlogin="checkLoginState();"></fb:login-button>
+        <div class="jumbotron">
+            <h1>Facebook Image Downloader</h1>
+            <p class="lead">Download your Facebook images with correct timestamps and EXIF data. To get started, press the button below:</p>
+            <div>
+                <fb:login-button class="fb-login-button" scope="user_photos" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false" onlogin="checkLoginState();"></fb:login-button>
+            </div>
         </div>
-      </div>
     </div>
     
     <div id="app" style="display: none;">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <form>
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Paste a URL to import photos from" id="input-url" value="https://www.facebook.com/marko.tukiainen/media_set?set=a.1721033306562.96885.1260192333&type=3">
-                <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" id="load-images">Load images</button>
-                </span>
-              </div>
-            </form>
-          </div>
-        </div>
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <select id="albums" class="form-control">
+                            <option>-- Select album --</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-outline" style="display: none;" id="download-btn">Download</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="container">
         
-        <div class="progress" style="display: none;">
-          <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 0%" id="progressbar"></div>
-        </div>
+            <div class="progress" style="display: none;">
+                <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 0%" id="progressbar"></div>
+            </div>
         
-        <div id="select-images" style="display: none;">
-          <div class="row">
-            <p>Select images to download:</p>
-          </div>
+            <p id="select-images-to-download" style="display: none;">Select images to download:</p>
+            <div id="select-images" style="display: none;">
+            </div>
         </div>
-      </div>
       
     </div>
     
     
     <div class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <p>Made with <span class="glyphicon glyphicon-heart"></span> by <a href="https://twitter.com/luotojesse">@luotojesse</a></p>
-          </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Made with <span class="glyphicon glyphicon-heart"></span> by <a href="https://twitter.com/luotojesse">@luotojesse</a></p>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
 
@@ -99,7 +99,7 @@
       r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
       ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>
-    
+
     <script>
       (function(d, s, id){
          var js, fjs = d.getElementsByTagName(s)[0];
@@ -110,10 +110,10 @@
        }(document, 'script', 'facebook-jssdk'));
     </script>
 
-        <!-- build:js({app,.tmp}) scripts/main.js -->
-        <script src="scripts/piexif.js"></script>
-        <script src="scripts/saveAs.js"></script>
-        <script src="scripts/main.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script src="scripts/piexif.js"></script>
+    <script src="scripts/saveAs.js"></script>
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
 </body>
 </html>
